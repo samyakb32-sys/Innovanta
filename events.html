@@ -348,6 +348,28 @@ footer{background:var(--night);color:rgba(245,241,234,.72);padding:clamp(3.4rem,
 .aurora{position:absolute;border-radius:50%;filter:blur(70px);opacity:.35;pointer-events:none;z-index:0;animation:auroraDrift 16s ease-in-out infinite alternate}
 @keyframes auroraDrift{to{transform:translate3d(40px,-30px,0) scale(1.12)}}
 @media (prefers-reduced-motion:reduce){.aurora,.hero-mark,.hero-tag .dot{animation:none}}
+
+/* ---- event pages ---- */
+.ev-card{position:relative}
+.ev-link{color:inherit;text-decoration:none}
+.ev-link::after{content:"";position:absolute;inset:0;z-index:1}
+.ev-foot a,.ev-actions a{position:relative;z-index:2}
+.ev-back{display:inline-flex;align-items:center;gap:.5rem;font-family:var(--display);font-size:.72rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-2);margin-bottom:1.6rem}
+.ev-back:hover{color:var(--violet)}
+.ed-grid{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(0,1fr);gap:2.4rem;align-items:start}
+.ed-grid .ev-poster{height:clamp(220px,32vw,340px);border-radius:var(--r-lg)}
+.ed-grid .ev-poster .big{font-size:12rem;top:-30px}
+.ed-main h1{font-family:var(--display);font-weight:700;font-size:clamp(2rem,4.2vw,3.1rem);letter-spacing:-.02em;line-height:1.08;margin:1rem 0 .8rem}
+.ed-main h2{font-family:var(--display);font-size:1.15rem;margin:2rem 0 .8rem}
+.ed-main .lead{font-size:1.02rem;color:var(--ink-2);line-height:1.65;max-width:62ch}
+.ed-list{list-style:none;padding:0;display:grid;gap:.7rem;max-width:62ch}
+.ed-list li{display:flex;gap:.7rem;color:var(--ink-2);line-height:1.5}
+.ed-list li::before{content:"";flex:none;width:8px;height:8px;margin-top:.5em;border-radius:50%;background:var(--violet)}
+.ed-side{position:sticky;top:96px;background:var(--paper);border:1px solid var(--line);border-radius:var(--r-lg);padding:1.5rem;display:grid;gap:1rem}
+.ed-side dt{font-family:var(--display);font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-3)}
+.ed-side dd{margin:.2rem 0 0;font-weight:500;color:var(--ink)}
+.ed-side .btn{justify-content:center}
+@media (max-width:860px){.ed-grid{grid-template-columns:1fr}.ed-side{position:static}}
 </style>
 </head>
 <body>
@@ -415,7 +437,7 @@ footer{background:var(--night);color:rgba(245,241,234,.72);padding:clamp(3.4rem,
         </div>
         <div class="ev-body">
           <div class="ev-meta"><span class="pill open">Registration Open</span><time>Nov 14–15, 2026 · 9:00 AM IST</time></div>
-          <h3>INNOVANTA Hackathon — Build for Impact</h3>
+          <h3><a class="ev-link" href="event-hackathon.html">INNOVANTA Hackathon — Build for Impact</a></h3>
           <p class="ev-venue"><svg viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 1 1 16 0zM12 13a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>Innovation Auditorium + Online</p>
           <p class="ev-desc">A 24-hour sprint where teams build AI-powered solutions for real social-sector problem statements, mentored by industry engineers and judged by a startup panel.</p>
           <div class="ev-foot">
@@ -433,7 +455,7 @@ footer{background:var(--night);color:rgba(245,241,234,.72);padding:clamp(3.4rem,
         </div>
         <div class="ev-body">
           <div class="ev-meta"><span class="pill closing">Closing Soon</span><time>Oct 29–30, 2026 · 10:00 AM IST</time></div>
-          <h3>Generative AI Bootcamp</h3>
+          <h3><a class="ev-link" href="event-genai-bootcamp.html">Generative AI Bootcamp</a></h3>
           <p class="ev-venue"><svg viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 1 1 16 0zM12 13a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>CS Lab 2 · Online for remote campuses</p>
           <p class="ev-desc">Hands-on with LLMs, prompt engineering, local model toolchains and fine-tuning — finish the weekend with your own working AI assistant deployed.</p>
           <div class="ev-foot">
@@ -451,7 +473,7 @@ footer{background:var(--night);color:rgba(245,241,234,.72);padding:clamp(3.4rem,
         </div>
         <div class="ev-body">
           <div class="ev-meta"><span class="pill soon">Coming Soon</span><time>Dec 5, 2026 · 9:00 AM IST</time></div>
-          <h3>Ideate → Innovate Ideathon</h3>
+          <h3><a class="ev-link" href="event-ideathon.html">Ideate → Innovate Ideathon</a></h3>
           <p class="ev-venue"><svg viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 1 1 16 0zM12 13a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>Main Auditorium</p>
           <p class="ev-desc">Turn raw ideas into validated project briefs in a single day. No coding required — bring curiosity, leave with a roadmap and a team.</p>
           <div class="ev-foot">
@@ -469,7 +491,7 @@ footer{background:var(--night);color:rgba(245,241,234,.72);padding:clamp(3.4rem,
         </div>
         <div class="ev-body">
           <div class="ev-meta"><span class="pill open">Registration Open</span><time>Nov 28, 2026 · 6:00 PM IST</time></div>
-          <h3>Research Showcase Night</h3>
+          <h3><a class="ev-link" href="event-research-showcase.html">Research Showcase Night</a></h3>
           <p class="ev-venue"><svg viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 1 1 16 0zM12 13a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>Tech Block Atrium</p>
           <p class="ev-desc">Student papers and posters, judged live by research scholars and industry mentors. Top teams get guidance towards publication and conferences.</p>
           <div class="ev-foot">
@@ -487,7 +509,7 @@ footer{background:var(--night);color:rgba(245,241,234,.72);padding:clamp(3.4rem,
         </div>
         <div class="ev-body">
           <div class="ev-meta"><span class="pill closed">Concluded · Sep 2026</span></div>
-          <h3>AI Week '26</h3>
+          <h3><a class="ev-link" href="event-ai-week-26.html">AI Week '26</a></h3>
           <p class="ev-desc">Four workshops, two panels, one hallway track full of ideas. 320 attendees, 28 projects initiated in the closing hack-night.</p>
           <div class="ev-high">
             <span class="chip v">Dr. Meera Kulkarni — ML Researcher</span>
@@ -509,7 +531,7 @@ footer{background:var(--night);color:rgba(245,241,234,.72);padding:clamp(3.4rem,
         </div>
         <div class="ev-body">
           <div class="ev-meta"><span class="pill closed">Concluded · Jul 2026</span></div>
-          <h3>Startup Sprint 01</h3>
+          <h3><a class="ev-link" href="event-startup-sprint-01.html">Startup Sprint 01</a></h3>
           <p class="ev-desc">36 hours from validation to demo day. Six student startups kept building post-event; two secured incubation offers from the campus cell.</p>
           <div class="ev-high">
             <span class="chip v">6 startups alive</span>
@@ -530,7 +552,7 @@ footer{background:var(--night);color:rgba(245,241,234,.72);padding:clamp(3.4rem,
         </div>
         <div class="ev-body">
           <div class="ev-meta"><span class="pill closed">Since Feb 2026 · Quarterly</span></div>
-          <h3>Open Source Fridays</h3>
+          <h3><a class="ev-link" href="event-open-source-fridays.html">Open Source Fridays</a></h3>
           <p class="ev-desc">Monthly contributor meetups that grew into a movement — 120+ merged PRs across partner repositories and 40 first-time contributors onboarded.</p>
           <div class="ev-high">
             <span class="chip v">120+ PRs merged</span>
@@ -551,7 +573,7 @@ footer{background:var(--night);color:rgba(245,241,234,.72);padding:clamp(3.4rem,
         </div>
         <div class="ev-body">
           <div class="ev-meta"><span class="pill closed">Concluded · Apr 2026</span></div>
-          <h3>InnovaX Open House</h3>
+          <h3><a class="ev-link" href="event-innovax-open-house.html">InnovaX Open House</a></h3>
           <p class="ev-desc">The day INNOVANTA met its wider campus — six-pillar demos, a project expo, and 200+ new members who never left the group chat.</p>
           <div class="ev-high">
             <span class="chip v">Pillar demos ×6</span>
