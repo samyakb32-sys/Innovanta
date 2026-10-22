@@ -34,7 +34,7 @@ html{scroll-behavior:smooth}
 body{
   font-family:var(--body); background:var(--bg); color:var(--ink);
   -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
-  overflow-x:hidden; font-size:16px; line-height:1.6;
+  overflow-x:clip; font-size:16px; line-height:1.6;
 }
 body.locked{overflow:hidden}
 ::selection{background:var(--violet);color:#fff}
@@ -370,6 +370,61 @@ footer{background:var(--night);color:rgba(245,241,234,.72);padding:clamp(3.4rem,
 .ed-side dd{margin:.2rem 0 0;font-weight:500;color:var(--ink)}
 .ed-side .btn{justify-content:center}
 @media (max-width:860px){.ed-grid{grid-template-columns:1fr}.ed-side{position:static}}
+
+/* ---- events reel ---- */
+#events{--g:clamp(24px,3.2vw,64px);background:var(--bg);overflow:visible}
+.reel{position:relative}
+.reel-pin{position:sticky;top:0;height:100svh;min-height:520px;overflow:clip;isolation:isolate}
+.reel-head{position:absolute;z-index:5;left:var(--g);right:var(--g);top:clamp(96px,14vh,128px);display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+.reel-head h2{font-family:var(--display);font-weight:500;font-size:clamp(22px,2.15vw,34px);letter-spacing:-.045em}
+.reel-bg{position:absolute;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
+.reel-word{position:absolute;left:6%;right:6%;top:22%;display:flex;align-items:baseline;font-family:var(--display);font-weight:500;font-size:min(14vh,calc(110vw/6));line-height:1;text-transform:uppercase;white-space:nowrap}
+.reel-word i{font-style:normal;flex:1 1;min-width:0;text-align:center;opacity:.075;will-change:transform}
+.reel-world{position:absolute;inset:0;transform-style:preserve-3d;perspective:var(--persp,1000px);perspective-origin:50% 50%}
+.rw{position:absolute;left:50%;top:50%;width:var(--fw);height:var(--fh);transform-style:preserve-3d;will-change:transform;pointer-events:none;visibility:hidden}
+.rw.is-hidden{display:none}
+.rw[data-current="true"] .rw-link{pointer-events:auto}
+.rw-link{display:block;height:100%;color:inherit;text-decoration:none;-webkit-tap-highlight-color:transparent}
+.rw-link:focus-visible{outline:2px solid var(--ink);outline-offset:7px}
+.rw-prev{position:absolute;inset:0;overflow:hidden;background:#e9e9e5;box-shadow:0 1px 2px rgba(26,26,24,.08),0 24px 50px -22px rgba(26,26,24,.35)}
+.rw-prev .ev-poster{height:100%;width:100%}
+.rw-prev .ev-poster .big{font-size:clamp(7rem,22vh,16rem);top:-5%;right:4%}
+.rw-cap{position:absolute;left:0;top:100%;width:100%;display:flex;justify-content:space-between;align-items:flex-start;gap:18px;padding-top:18px}
+.rw-cap h3{font-family:var(--display);font-weight:500;font-size:clamp(21px,2.5vw,38px);letter-spacing:-.045em;line-height:1.13;max-width:32ch;text-wrap:balance}
+.rw-meta{display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:10px;font-family:var(--display);font-size:11px;letter-spacing:.06em;color:var(--ink-3)}
+.rw-meta span+span{border-left:1px solid var(--line);padding-left:18px}
+.rw-go{flex:none;display:grid;place-items:center;width:42px;height:42px;font-size:34px;line-height:1;margin-top:-6px;transition:transform .3s var(--ease),color .15s}
+.rw-link:hover .rw-go,.rw-link:focus-visible .rw-go{color:var(--violet);transform:translate(4px,-4px)}
+.reel-ctrl{position:absolute;z-index:5;left:var(--g);right:var(--g);bottom:clamp(25px,4.5vh,48px);display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:24px}
+.reel-read{display:flex;align-items:center;gap:15px;font-family:var(--display)}
+.reel-cur{font-size:25px;letter-spacing:-.06em;line-height:1;font-variant-numeric:tabular-nums}
+.reel-tot{font-size:11px;color:var(--ink-3)}
+.reel-prog{width:clamp(60px,10vw,164px);height:24px;fill:none;stroke:#dcd7ca;stroke-width:2;stroke-linecap:round;overflow:visible}
+.reel-prog path+path{stroke:var(--ink-2);stroke-width:3;stroke-dasharray:1;stroke-dashoffset:1}
+.reel-hint{display:flex;align-items:center;gap:20px;font-family:var(--display);font-size:11px;letter-spacing:.06em;color:var(--ink-3)}
+.reel-hint span{color:var(--ink);font-size:26px}
+.reel-all{justify-self:end;font-family:var(--display);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
+.reel-all:hover{color:var(--ink);text-decoration:underline;text-underline-offset:5px}
+@media (max-width:779px){
+  .reel-head{top:84px}
+  .rw-prev .ev-poster{padding:.7rem .8rem}
+  .rw-prev .ev-poster .kicker{font-size:.5rem;letter-spacing:.16em;padding:.25rem .55rem}
+  .rw-prev .ev-poster .fmt{display:none}
+  .reel-word{top:26%}
+  .rw-cap h3{font-size:clamp(21px,5.6vw,32px)}
+  .rw-meta{font-size:9px;gap:5px 12px}.rw-meta span+span{padding-left:12px}
+  .reel-ctrl{grid-template-columns:minmax(0,1fr) auto;bottom:28px;gap:14px}
+  .reel-hint{grid-column:1/-1;grid-row:2;border-top:1px solid var(--line);padding-top:14px;justify-content:space-between;font-size:9px}
+}
+/* reduced motion / no-JS fallback: plain stacked list */
+.reel.static .reel-pin{position:static;height:auto;min-height:0;overflow:visible;padding:8.5rem var(--g) 3rem}
+.reel.static .reel-head{position:static;margin-bottom:2.4rem}
+.reel.static .reel-bg,.reel.static .reel-ctrl{display:none}
+.reel.static .reel-world{position:static;display:grid;gap:5rem;max-width:1200px;margin:0 auto;transform:none;perspective:none}
+.reel.static .rw{position:relative;left:auto;top:auto;width:100%;height:auto;transform:none!important;opacity:1!important;visibility:visible!important}
+.reel.static .rw-link{pointer-events:auto}
+.reel.static .rw-prev{position:relative;aspect-ratio:16/9}
+.reel.static .rw-cap{position:static}
 </style>
 </head>
 <body>
@@ -413,185 +468,107 @@ footer{background:var(--night);color:rgba(245,241,234,.72);padding:clamp(3.4rem,
 <main id="main">
 
 <!-- ============ EVENTS ============ -->
-<section class="sec" id="events" style="padding-top:8.5rem">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <div>
-        <span class="sec-num">EVENTS</span>
-        <h2 class="h2" style="margin-top:.6rem">Where it happens.</h2>
+<section id="events" aria-label="Events">
+  <div class="reel" id="reel">
+    <div class="reel-pin" id="reel-pin">
+      <div class="reel-head">
+        <h2>Events</h2>
+        <div class="filters" role="group" aria-label="Filter events">
+          <button class="on" data-filter="all">All</button>
+          <button data-filter="upcoming">Upcoming</button>
+          <button data-filter="past">Past &amp; Highlights</button>
+        </div>
       </div>
-      <div class="filters" role="group" aria-label="Filter events">
-        <button class="on" data-filter="all">All</button>
-        <button data-filter="upcoming">Upcoming</button>
-        <button data-filter="past">Past &amp; Highlights</button>
-      </div>
-    </div>
-
-    <div class="ev-grid" id="ev-grid">
-
-      <!-- UPCOMING 1 -->
-      <article class="ev-card reveal" data-kind="upcoming" style="--i:0">
-        <div class="ev-poster tone-m"><span class="big">26</span>
+      <div class="reel-bg" aria-hidden="true" id="reel-bg"></div>
+      <div class="reel-world" id="reel-world">
+        <article class="rw" data-kind="upcoming">
+          <a class="rw-link" href="event-hackathon.html">
+            <div class="rw-prev"><div class="ev-poster tone-m"><span class="big">26</span>
           <span class="kicker">Flagship · Hackathon</span>
           <div class="fmt"><span class="inf">24 HOURS</span><span class="inf">◉ HYBRID</span></div>
-        </div>
-        <div class="ev-body">
-          <div class="ev-meta"><span class="pill open">Registration Open</span><time>Nov 14–15, 2026 · 9:00 AM IST</time></div>
-          <h3><a class="ev-link" href="event-hackathon.html">INNOVANTA Hackathon — Build for Impact</a></h3>
-          <p class="ev-venue"><svg viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 1 1 16 0zM12 13a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>Innovation Auditorium + Online</p>
-          <p class="ev-desc">A 24-hour sprint where teams build AI-powered solutions for real social-sector problem statements, mentored by industry engineers and judged by a startup panel.</p>
-          <div class="ev-foot">
-            <span class="deadline">Register by <b>Nov 7, 2026</b><span class="cd" data-deadline="2026-11-07T23:59:00+05:30"></span></span>
-            <a class="btn btn-violet sm" href="index.html#join" data-toast="Registration form — connecting to the official Hackathon portal…" data-magnet>Register Now ↗</a>
-          </div>
-        </div>
-      </article>
-
-      <!-- UPCOMING 2 -->
-      <article class="ev-card reveal" data-kind="upcoming" style="--i:1">
-        <div class="ev-poster tone-v"><span class="big">AI</span>
+        </div></div>
+            <div class="rw-cap"><div><h3>INNOVANTA Hackathon — Build for Impact</h3><p class="rw-meta"><span>Nov 14–15, 2026 · 9:00 AM IST</span><span>Registration Open</span></p></div><span class="rw-go" aria-hidden="true">↗</span></div>
+          </a>
+        </article>
+        <article class="rw" data-kind="upcoming">
+          <a class="rw-link" href="event-genai-bootcamp.html">
+            <div class="rw-prev"><div class="ev-poster tone-v"><span class="big">AI</span>
           <span class="kicker">Workshop · Bootcamp</span>
           <div class="fmt"><span class="inf">2 DAYS</span><span class="inf">◉ LAB + LIVE</span></div>
-        </div>
-        <div class="ev-body">
-          <div class="ev-meta"><span class="pill closing">Closing Soon</span><time>Oct 29–30, 2026 · 10:00 AM IST</time></div>
-          <h3><a class="ev-link" href="event-genai-bootcamp.html">Generative AI Bootcamp</a></h3>
-          <p class="ev-venue"><svg viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 1 1 16 0zM12 13a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>CS Lab 2 · Online for remote campuses</p>
-          <p class="ev-desc">Hands-on with LLMs, prompt engineering, local model toolchains and fine-tuning — finish the weekend with your own working AI assistant deployed.</p>
-          <div class="ev-foot">
-            <span class="deadline">Register by <b>Oct 25, 2026</b><span class="cd" data-deadline="2026-10-25T23:59:00+05:30"></span></span>
-            <a class="btn btn-violet sm" href="index.html#join" data-toast="Registration form — opening the GenAI Bootcamp sign-up…" data-magnet>Register Now ↗</a>
-          </div>
-        </div>
-      </article>
-
-      <!-- UPCOMING 3 -->
-      <article class="ev-card reveal" data-kind="upcoming" style="--i:2">
-        <div class="ev-poster tone-a"><span class="big">iD</span>
+        </div></div>
+            <div class="rw-cap"><div><h3>Generative AI Bootcamp</h3><p class="rw-meta"><span>Oct 29–30, 2026 · 10:00 AM IST</span><span>Closing Soon</span></p></div><span class="rw-go" aria-hidden="true">↗</span></div>
+          </a>
+        </article>
+        <article class="rw" data-kind="upcoming">
+          <a class="rw-link" href="event-ideathon.html">
+            <div class="rw-prev"><div class="ev-poster tone-a"><span class="big">iD</span>
           <span class="kicker">Ideathon · 6 Hours</span>
           <div class="fmt"><span class="inf">OPEN TO ALL</span><span class="inf">◉ CAMPUS</span></div>
-        </div>
-        <div class="ev-body">
-          <div class="ev-meta"><span class="pill soon">Coming Soon</span><time>Dec 5, 2026 · 9:00 AM IST</time></div>
-          <h3><a class="ev-link" href="event-ideathon.html">Ideate → Innovate Ideathon</a></h3>
-          <p class="ev-venue"><svg viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 1 1 16 0zM12 13a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>Main Auditorium</p>
-          <p class="ev-desc">Turn raw ideas into validated project briefs in a single day. No coding required — bring curiosity, leave with a roadmap and a team.</p>
-          <div class="ev-foot">
-            <span class="deadline">Registrations open <b>Nov 1, 2026</b></span>
-            <a class="btn btn-ghost sm" href="index.html#join" aria-disabled="true">Opens Soon</a>
-          </div>
-        </div>
-      </article>
-
-      <!-- UPCOMING 4 -->
-      <article class="ev-card reveal" data-kind="upcoming" style="--i:3">
-        <div class="ev-poster tone-p"><span class="big">RS</span>
+        </div></div>
+            <div class="rw-cap"><div><h3>Ideate → Innovate Ideathon</h3><p class="rw-meta"><span>Dec 5, 2026 · 9:00 AM IST</span><span>Coming Soon</span></p></div><span class="rw-go" aria-hidden="true">↗</span></div>
+          </a>
+        </article>
+        <article class="rw" data-kind="upcoming">
+          <a class="rw-link" href="event-research-showcase.html">
+            <div class="rw-prev"><div class="ev-poster tone-p"><span class="big">RS</span>
           <span class="kicker">Research · Showcase</span>
           <div class="fmt"><span class="inf">EVENING</span><span class="inf">◉ TECH BLOCK</span></div>
-        </div>
-        <div class="ev-body">
-          <div class="ev-meta"><span class="pill open">Registration Open</span><time>Nov 28, 2026 · 6:00 PM IST</time></div>
-          <h3><a class="ev-link" href="event-research-showcase.html">Research Showcase Night</a></h3>
-          <p class="ev-venue"><svg viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 1 1 16 0zM12 13a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>Tech Block Atrium</p>
-          <p class="ev-desc">Student papers and posters, judged live by research scholars and industry mentors. Top teams get guidance towards publication and conferences.</p>
-          <div class="ev-foot">
-            <span class="deadline">Abstracts due <b>Nov 21, 2026</b><span class="cd" data-deadline="2026-11-21T23:59:00+05:30"></span></span>
-            <a class="btn btn-violet sm" href="index.html#join" data-toast="Submitting to the Showcase abstract portal…" data-magnet>Submit Abstract ↗</a>
-          </div>
-        </div>
-      </article>
-
-      <!-- PAST 1 -->
-      <article class="ev-card reveal" data-kind="past" style="--i:0">
-        <div class="ev-poster tone-v"><span class="big">W1</span>
+        </div></div>
+            <div class="rw-cap"><div><h3>Research Showcase Night</h3><p class="rw-meta"><span>Nov 28, 2026 · 6:00 PM IST</span><span>Registration Open</span></p></div><span class="rw-go" aria-hidden="true">↗</span></div>
+          </a>
+        </article>
+        <article class="rw" data-kind="past">
+          <a class="rw-link" href="event-ai-week-26.html">
+            <div class="rw-prev"><div class="ev-poster tone-v"><span class="big">W1</span>
           <span class="kicker">Past · Week-long Series</span>
           <div class="fmt"><span class="inf">320 ATTENDEES</span></div>
-        </div>
-        <div class="ev-body">
-          <div class="ev-meta"><span class="pill closed">Concluded · Sep 2026</span></div>
-          <h3><a class="ev-link" href="event-ai-week-26.html">AI Week '26</a></h3>
-          <p class="ev-desc">Four workshops, two panels, one hallway track full of ideas. 320 attendees, 28 projects initiated in the closing hack-night.</p>
-          <div class="ev-high">
-            <span class="chip v">Dr. Meera Kulkarni — ML Researcher</span>
-            <span class="chip a">Arjun Nair — AI Founder</span>
-            <span class="chip">28 projects started</span>
-          </div>
-          <div class="ev-actions">
-            <a class="btn btn-ghost sm" href="gallery.html?event=ai">Highlights &amp; Photos ↗</a>
-            <a class="btn btn-ghost sm" href="#events" data-toast="Video playlist opening shortly…">Watch Recaps</a>
-          </div>
-        </div>
-      </article>
-
-      <!-- PAST 2 -->
-      <article class="ev-card reveal" data-kind="past" style="--i:1">
-        <div class="ev-poster tone-m"><span class="big">S1</span>
+        </div></div>
+            <div class="rw-cap"><div><h3>AI Week &#x27;26</h3><p class="rw-meta"><span>Concluded · Sep 2026</span><span>320 ATTENDEES</span></p></div><span class="rw-go" aria-hidden="true">↗</span></div>
+          </a>
+        </article>
+        <article class="rw" data-kind="past">
+          <a class="rw-link" href="event-startup-sprint-01.html">
+            <div class="rw-prev"><div class="ev-poster tone-m"><span class="big">S1</span>
           <span class="kicker">Past · Build Sprint</span>
           <div class="fmt"><span class="inf">22 TEAMS</span></div>
-        </div>
-        <div class="ev-body">
-          <div class="ev-meta"><span class="pill closed">Concluded · Jul 2026</span></div>
-          <h3><a class="ev-link" href="event-startup-sprint-01.html">Startup Sprint 01</a></h3>
-          <p class="ev-desc">36 hours from validation to demo day. Six student startups kept building post-event; two secured incubation offers from the campus cell.</p>
-          <div class="ev-high">
-            <span class="chip v">6 startups alive</span>
-            <span class="chip a">2 incubation offers</span>
-            <span class="chip">Mentors: local founders &amp; VCs</span>
-          </div>
-          <div class="ev-actions">
-            <a class="btn btn-ghost sm" href="#events" data-toast="Loading Startup Sprint outcomes report…">Outcomes Report ↗</a>
-          </div>
-        </div>
-      </article>
-
-      <!-- PAST 3 -->
-      <article class="ev-card reveal" data-kind="past" style="--i:2">
-        <div class="ev-poster tone-a"><span class="big">OS</span>
+        </div></div>
+            <div class="rw-cap"><div><h3>Startup Sprint 01</h3><p class="rw-meta"><span>Concluded · Jul 2026</span><span>22 TEAMS</span></p></div><span class="rw-go" aria-hidden="true">↗</span></div>
+          </a>
+        </article>
+        <article class="rw" data-kind="past">
+          <a class="rw-link" href="event-open-source-fridays.html">
+            <div class="rw-prev"><div class="ev-poster tone-a"><span class="big">OS</span>
           <span class="kicker">Past · Monthly Series</span>
           <div class="fmt"><span class="inf">ONGOING</span></div>
-        </div>
-        <div class="ev-body">
-          <div class="ev-meta"><span class="pill closed">Since Feb 2026 · Quarterly</span></div>
-          <h3><a class="ev-link" href="event-open-source-fridays.html">Open Source Fridays</a></h3>
-          <p class="ev-desc">Monthly contributor meetups that grew into a movement — 120+ merged PRs across partner repositories and 40 first-time contributors onboarded.</p>
-          <div class="ev-high">
-            <span class="chip v">120+ PRs merged</span>
-            <span class="chip">40 new contributors</span>
-            <span class="chip a">Partner repos: 8</span>
-          </div>
-          <div class="ev-actions">
-            <a class="btn btn-ghost sm" href="index.html#join" data-toast="Joining the next Open Source Friday — see you there!" data-magnet>Join Next Session ↗</a>
-          </div>
-        </div>
-      </article>
-
-      <!-- PAST 4 -->
-      <article class="ev-card reveal" data-kind="past" style="--i:3">
-        <div class="ev-poster tone-p"><span class="big">X9</span>
+        </div></div>
+            <div class="rw-cap"><div><h3>Open Source Fridays</h3><p class="rw-meta"><span>Since Feb 2026 · Quarterly</span><span>ONGOING</span></p></div><span class="rw-go" aria-hidden="true">↗</span></div>
+          </a>
+        </article>
+        <article class="rw" data-kind="past">
+          <a class="rw-link" href="event-innovax-open-house.html">
+            <div class="rw-prev"><div class="ev-poster tone-p"><span class="big">X9</span>
           <span class="kicker">Past · Community Meet</span>
           <div class="fmt"><span class="inf">200+ MEMBERS</span></div>
-        </div>
-        <div class="ev-body">
-          <div class="ev-meta"><span class="pill closed">Concluded · Apr 2026</span></div>
-          <h3><a class="ev-link" href="event-innovax-open-house.html">InnovaX Open House</a></h3>
-          <p class="ev-desc">The day INNOVANTA met its wider campus — six-pillar demos, a project expo, and 200+ new members who never left the group chat.</p>
-          <div class="ev-high">
-            <span class="chip v">Pillar demos ×6</span>
-            <span class="chip a">Project expo ×18 stalls</span>
-            <span class="chip">+200 members</span>
-          </div>
-          <div class="ev-actions">
-            <a class="btn btn-ghost sm" href="gallery.html?event=open">Photo Gallery ↗</a>
-          </div>
-        </div>
-      </article>
-
+        </div></div>
+            <div class="rw-cap"><div><h3>InnovaX Open House</h3><p class="rw-meta"><span>Concluded · Apr 2026</span><span>200+ MEMBERS</span></p></div><span class="rw-go" aria-hidden="true">↗</span></div>
+          </a>
+        </article>
+      </div>
+      <div class="reel-ctrl">
+        <div class="reel-read"><span class="reel-cur" id="reel-cur">01</span>
+          <svg class="reel-prog" viewBox="0 0 164 24" preserveAspectRatio="none" aria-hidden="true"><path d="M2 14C30 4 50 22 80 12S140 6 162 12" pathLength="1"/><path id="reel-bar" d="M2 14C30 4 50 22 80 12S140 6 162 12" pathLength="1"/></svg>
+          <span class="reel-tot" id="reel-tot">08</span></div>
+        <p class="reel-hint">Scroll to browse events <span>↓</span></p>
+        <a class="reel-all" href="gallery.html">Gallery ↗</a>
+      </div>
     </div>
-
+  </div>
+  <div class="wrap" style="padding-bottom:5rem">
     <div class="events-note reveal">
       <p><b>Every event carries a clear registration CTA</b> wired to its official form or platform — with live status so you always know what's Open, Closing Soon or Coming Soon. Content stays easy to manage through a simple admin-friendly event workflow.</p>
       <a class="btn btn-ghost sm" href="index.html#join" data-magnet>Suggest an Event <span class="arr">↗</span></a>
     </div>
+  </div>
   </div>
 </section>
 
@@ -988,6 +965,88 @@ footer{background:var(--night);color:rgba(245,241,234,.72);padding:clamp(3.4rem,
 
   /* in top frame nothing else; keep isTop for future */
   if(!isTop){/* embedded in preview iframe — everything above already works */}
+})();
+</script>
+<script>
+(function(){
+  var doc=document,reel=doc.getElementById('reel'),pin=doc.getElementById('reel-pin'),world=doc.getElementById('reel-world');
+  var works=[].slice.call(doc.querySelectorAll('.rw')),bg=doc.getElementById('reel-bg');
+  var cur=doc.getElementById('reel-cur'),tot=doc.getElementById('reel-tot'),bar=doc.getElementById('reel-bar');
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches){reel.classList.add('static');return;}
+  /* big faded word behind */
+  var word=doc.createElement('div');word.className='reel-word';
+  'EVENTS'.split('').forEach(function(ch){var i=doc.createElement('i');i.textContent=ch;word.appendChild(i);});
+  bg.appendChild(word);var letters=[].slice.call(word.children);
+  var vis=works.slice(),H=1,W=1,unit=1,wW=1,fw=1,fh=1,mobile=false,pos=0,target=0,raf=0,last=0,active=true;
+  var FOV=40,DIST=6,AR=16/9;
+  function sm(a,b,x){var t=Math.min(1,Math.max(0,(x-a)/(b-a)));return t*t*(3-2*t);}
+  function pose(e){ /* same spatial curve as the reference reel: e = index - position */
+    var n=Math.max(0,e),s=Math.max(0,-e),wh=2*Math.tan(FOV*Math.PI/360)*DIST,ww=wh*W/H;
+    return {
+      x:e>=0?Math.sin(1.1*n)*ww*.74:-(.814*ww)*s*(1+.12*s),
+      y:e>=0?Math.sin(.95*n)*wh*.2:-(.2*wh)*Math.sin(.95*s)*(1+.3*s),
+      z:e>=0?-(3*n):3*s-s*s*.3,
+      ry:e>=0?-(.55*Math.sin(Math.min(n,1.5))):s*(.55+.17*s),
+      rz:e>=0?-(.16*Math.sin(1.2*n)):s*(.192+.048*s),
+      op:e>=0?1-sm(1.9,3,n):1-sm(.66,1.05,s),
+      cap:1-sm(.08,.4,Math.abs(e))};
+  }
+  function layout(){
+    H=pin.clientHeight;W=pin.clientWidth;mobile=W<780;
+    fh=Math.min(.54*H,W*(mobile?.9:.72)/AR);fw=fh*AR;
+    var wh=2*Math.tan(FOV*Math.PI/360)*DIST;unit=wh/H;
+    pin.style.setProperty('--fw',fw+'px');pin.style.setProperty('--fh',fh+'px');
+    world.style.setProperty('--persp',(DIST/unit)+'px');
+    reel.style.height=(H+Math.max(0,vis.length-1)*H*(mobile?.95:1.1))+'px';
+    tot.textContent=String(vis.length).padStart(2,'0');
+    readScroll();render(true);
+  }
+  function readScroll(){
+    var top=reel.getBoundingClientRect().top+window.scrollY; /* document y of reel top */
+    var d=H*(mobile?.95:1.1);
+    target=vis.length>1?Math.min(vis.length-1,Math.max(0,(window.scrollY-top)/d)):0;
+  }
+  function render(force){
+    var ci=Math.round(pos);
+    vis.forEach(function(w,i){
+      var p=pose(i-pos);
+      w.style.transform='translate(-50%,-50%) translate3d('+(p.x/unit)+'px,'+(-p.y/unit)+'px,'+(p.z/unit)+'px) rotateY('+p.ry+'rad) rotateZ('+(-p.rz)+'rad)';
+      w.style.opacity=p.op;w.style.visibility=p.op<.002?'hidden':'visible';
+      w.querySelector('.rw-cap').style.opacity=p.cap;
+      var isCur=i===ci;
+      if(isCur){w.setAttribute('data-current','true');w.removeAttribute('aria-hidden');w.querySelector('a').tabIndex=0;}
+      else{w.removeAttribute('data-current');w.setAttribute('aria-hidden','true');w.querySelector('a').tabIndex=-1;}
+    });
+    letters.forEach(function(l,i){var r=.95*pos-.55*i;
+      l.style.transform='translate3d('+(.018*Math.sin(.7*r))+'em,'+(.07*Math.sin(r))+'em,0) rotate('+(1.4*Math.sin(.6*r))+'deg)';
+      l.style.opacity=.075+.018*Math.cos(r);});
+    cur.textContent=String(Math.min(vis.length,ci+1)).padStart(2,'0');
+    bar.style.strokeDashoffset=vis.length>1?1-pos/(vis.length-1):0;
+  }
+  function tick(t){
+    raf=0;var dt=Math.min(.1,(t-last)/1000||.016);last=t;
+    pos+=(target-pos)*(1-Math.exp(-dt*7));
+    if(Math.abs(target-pos)<.0004)pos=target;
+    render();
+    if(pos!==target&&active)raf=requestAnimationFrame(tick);
+  }
+  function kick(){readScroll();if(!raf&&active){last=performance.now();raf=requestAnimationFrame(tick);}}
+  window.addEventListener('scroll',kick,{passive:true});
+  window.addEventListener('resize',function(){clearTimeout(window.__rt);window.__rt=setTimeout(layout,120);});
+  new IntersectionObserver(function(es){active=es[0].isIntersecting;if(active)kick();},{rootMargin:'200px 0px'}).observe(reel);
+  /* filters rebuild the reel */
+  var fb=[].slice.call(doc.querySelectorAll('.reel-head .filters button'));
+  fb.forEach(function(b){b.addEventListener('click',function(){
+    var f=b.getAttribute('data-filter');
+    fb.forEach(function(x){x.classList.toggle('on',x===b);});
+    works.forEach(function(w){w.classList.toggle('is-hidden',f!=='all'&&w.getAttribute('data-kind')!==f);});
+    vis=works.filter(function(w){return !w.classList.contains('is-hidden');});
+    var top=reel.getBoundingClientRect().top+window.scrollY;
+    pos=0;target=0;layout();
+    window.scrollTo({top:Math.min(window.scrollY,top),behavior:'auto'});readScroll();pos=target;render();
+  });});
+  layout();
+  if(doc.fonts&&doc.fonts.ready)doc.fonts.ready.then(layout);
 })();
 </script>
 </body>
