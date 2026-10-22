@@ -416,6 +416,16 @@ footer{background:var(--night);color:rgba(245,241,234,.72);padding:clamp(3.4rem,
   .reel-ctrl{grid-template-columns:minmax(0,1fr) auto;bottom:28px;gap:14px}
   .reel-hint{grid-column:1/-1;grid-row:2;border-top:1px solid var(--line);padding-top:14px;justify-content:space-between;font-size:9px}
 }
+
+.reel-tools{display:flex;align-items:center;gap:.9rem;flex-wrap:wrap}
+.rfilters{display:flex;gap:.5rem;flex-wrap:wrap}
+.rfilters button,.vswitch button{font-family:var(--display);font-size:.78rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:.6rem 1.15rem;border-radius:100px;border:1px solid var(--line);color:var(--ink-2);transition:all .3s var(--ease);background:rgba(255,255,255,.5)}
+.rfilters button:hover,.vswitch button:hover{border-color:var(--ink)}
+.rfilters button.on,.vswitch button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.vswitch{display:flex;gap:.5rem;padding-left:.9rem;border-left:1px solid var(--line)}
+.nview{background:linear-gradient(var(--bg),var(--bg-2))}
+.nview .sec-head .reel-tools{justify-content:flex-end}
+@media (max-width:779px){.vswitch{padding-left:0;border-left:0}.nview .sec-head{flex-direction:column;align-items:flex-start}}
 /* reduced motion / no-JS fallback: plain stacked list */
 .reel.static .reel-pin{position:static;height:auto;min-height:0;overflow:visible;padding:8.5rem var(--g) 3rem}
 .reel.static .reel-head{position:static;margin-bottom:2.4rem}
@@ -473,10 +483,16 @@ footer{background:var(--night);color:rgba(245,241,234,.72);padding:clamp(3.4rem,
     <div class="reel-pin" id="reel-pin">
       <div class="reel-head">
         <h2>Events</h2>
-        <div class="filters" role="group" aria-label="Filter events">
+        <div class="reel-tools">
+        <div class="rfilters" role="group" aria-label="Filter events">
           <button class="on" data-filter="all">All</button>
           <button data-filter="upcoming">Upcoming</button>
           <button data-filter="past">Past &amp; Highlights</button>
+        </div>
+        <div class="vswitch" role="group" aria-label="Events view">
+          <button type="button" class="on" data-view="reel" aria-pressed="true">Reel</button>
+          <button type="button" data-view="normal" aria-pressed="false">Normal</button>
+        </div>
         </div>
       </div>
       <div class="reel-bg" aria-hidden="true" id="reel-bg"></div>
@@ -563,11 +579,201 @@ footer{background:var(--night);color:rgba(245,241,234,.72);padding:clamp(3.4rem,
       </div>
     </div>
   </div>
-  <div class="wrap" style="padding-bottom:5rem">
+  <div class="wrap" id="reel-note" style="padding-bottom:5rem">
     <div class="events-note reveal">
       <p><b>Every event carries a clear registration CTA</b> wired to its official form or platform — with live status so you always know what's Open, Closing Soon or Coming Soon. Content stays easy to manage through a simple admin-friendly event workflow.</p>
       <a class="btn btn-ghost sm" href="index.html#join" data-magnet>Suggest an Event <span class="arr">↗</span></a>
     </div>
+  </div>
+  </div>
+
+  <div class="nview" id="nview" hidden>
+  <div class="sec" style="padding-top:8.5rem">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div>
+        <span class="sec-num">EVENTS</span>
+        <h2 class="h2" style="margin-top:.6rem">Where it happens.</h2>
+      </div>
+      <div class="reel-tools">
+      <div class="filters" role="group" aria-label="Filter events">
+        <button class="on" data-filter="all">All</button>
+        <button data-filter="upcoming">Upcoming</button>
+        <button data-filter="past">Past &amp; Highlights</button>
+      </div>
+      <div class="vswitch" role="group" aria-label="Events view">
+          <button type="button" data-view="reel" aria-pressed="false">Reel</button>
+          <button type="button" class="on" data-view="normal" aria-pressed="true">Normal</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="ev-grid" id="ev-grid">
+
+      <!-- UPCOMING 1 -->
+      <article class="ev-card reveal" data-kind="upcoming" style="--i:0">
+        <div class="ev-poster tone-m"><span class="big">26</span>
+          <span class="kicker">Flagship · Hackathon</span>
+          <div class="fmt"><span class="inf">24 HOURS</span><span class="inf">◉ HYBRID</span></div>
+        </div>
+        <div class="ev-body">
+          <div class="ev-meta"><span class="pill open">Registration Open</span><time>Nov 14–15, 2026 · 9:00 AM IST</time></div>
+          <h3><a class="ev-link" href="event-hackathon.html">INNOVANTA Hackathon — Build for Impact</a></h3>
+          <p class="ev-venue"><svg viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 1 1 16 0zM12 13a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>Innovation Auditorium + Online</p>
+          <p class="ev-desc">A 24-hour sprint where teams build AI-powered solutions for real social-sector problem statements, mentored by industry engineers and judged by a startup panel.</p>
+          <div class="ev-foot">
+            <span class="deadline">Register by <b>Nov 7, 2026</b><span class="cd" data-deadline="2026-11-07T23:59:00+05:30"></span></span>
+            <a class="btn btn-violet sm" href="index.html#join" data-toast="Registration form — connecting to the official Hackathon portal…" data-magnet>Register Now ↗</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- UPCOMING 2 -->
+      <article class="ev-card reveal" data-kind="upcoming" style="--i:1">
+        <div class="ev-poster tone-v"><span class="big">AI</span>
+          <span class="kicker">Workshop · Bootcamp</span>
+          <div class="fmt"><span class="inf">2 DAYS</span><span class="inf">◉ LAB + LIVE</span></div>
+        </div>
+        <div class="ev-body">
+          <div class="ev-meta"><span class="pill closing">Closing Soon</span><time>Oct 29–30, 2026 · 10:00 AM IST</time></div>
+          <h3><a class="ev-link" href="event-genai-bootcamp.html">Generative AI Bootcamp</a></h3>
+          <p class="ev-venue"><svg viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 1 1 16 0zM12 13a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>CS Lab 2 · Online for remote campuses</p>
+          <p class="ev-desc">Hands-on with LLMs, prompt engineering, local model toolchains and fine-tuning — finish the weekend with your own working AI assistant deployed.</p>
+          <div class="ev-foot">
+            <span class="deadline">Register by <b>Oct 25, 2026</b><span class="cd" data-deadline="2026-10-25T23:59:00+05:30"></span></span>
+            <a class="btn btn-violet sm" href="index.html#join" data-toast="Registration form — opening the GenAI Bootcamp sign-up…" data-magnet>Register Now ↗</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- UPCOMING 3 -->
+      <article class="ev-card reveal" data-kind="upcoming" style="--i:2">
+        <div class="ev-poster tone-a"><span class="big">iD</span>
+          <span class="kicker">Ideathon · 6 Hours</span>
+          <div class="fmt"><span class="inf">OPEN TO ALL</span><span class="inf">◉ CAMPUS</span></div>
+        </div>
+        <div class="ev-body">
+          <div class="ev-meta"><span class="pill soon">Coming Soon</span><time>Dec 5, 2026 · 9:00 AM IST</time></div>
+          <h3><a class="ev-link" href="event-ideathon.html">Ideate → Innovate Ideathon</a></h3>
+          <p class="ev-venue"><svg viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 1 1 16 0zM12 13a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>Main Auditorium</p>
+          <p class="ev-desc">Turn raw ideas into validated project briefs in a single day. No coding required — bring curiosity, leave with a roadmap and a team.</p>
+          <div class="ev-foot">
+            <span class="deadline">Registrations open <b>Nov 1, 2026</b></span>
+            <a class="btn btn-ghost sm" href="index.html#join" aria-disabled="true">Opens Soon</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- UPCOMING 4 -->
+      <article class="ev-card reveal" data-kind="upcoming" style="--i:3">
+        <div class="ev-poster tone-p"><span class="big">RS</span>
+          <span class="kicker">Research · Showcase</span>
+          <div class="fmt"><span class="inf">EVENING</span><span class="inf">◉ TECH BLOCK</span></div>
+        </div>
+        <div class="ev-body">
+          <div class="ev-meta"><span class="pill open">Registration Open</span><time>Nov 28, 2026 · 6:00 PM IST</time></div>
+          <h3><a class="ev-link" href="event-research-showcase.html">Research Showcase Night</a></h3>
+          <p class="ev-venue"><svg viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 1 1 16 0zM12 13a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>Tech Block Atrium</p>
+          <p class="ev-desc">Student papers and posters, judged live by research scholars and industry mentors. Top teams get guidance towards publication and conferences.</p>
+          <div class="ev-foot">
+            <span class="deadline">Abstracts due <b>Nov 21, 2026</b><span class="cd" data-deadline="2026-11-21T23:59:00+05:30"></span></span>
+            <a class="btn btn-violet sm" href="index.html#join" data-toast="Submitting to the Showcase abstract portal…" data-magnet>Submit Abstract ↗</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- PAST 1 -->
+      <article class="ev-card reveal" data-kind="past" style="--i:0">
+        <div class="ev-poster tone-v"><span class="big">W1</span>
+          <span class="kicker">Past · Week-long Series</span>
+          <div class="fmt"><span class="inf">320 ATTENDEES</span></div>
+        </div>
+        <div class="ev-body">
+          <div class="ev-meta"><span class="pill closed">Concluded · Sep 2026</span></div>
+          <h3><a class="ev-link" href="event-ai-week-26.html">AI Week '26</a></h3>
+          <p class="ev-desc">Four workshops, two panels, one hallway track full of ideas. 320 attendees, 28 projects initiated in the closing hack-night.</p>
+          <div class="ev-high">
+            <span class="chip v">Dr. Meera Kulkarni — ML Researcher</span>
+            <span class="chip a">Arjun Nair — AI Founder</span>
+            <span class="chip">28 projects started</span>
+          </div>
+          <div class="ev-actions">
+            <a class="btn btn-ghost sm" href="gallery.html?event=ai">Highlights &amp; Photos ↗</a>
+            <a class="btn btn-ghost sm" href="#events" data-toast="Video playlist opening shortly…">Watch Recaps</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- PAST 2 -->
+      <article class="ev-card reveal" data-kind="past" style="--i:1">
+        <div class="ev-poster tone-m"><span class="big">S1</span>
+          <span class="kicker">Past · Build Sprint</span>
+          <div class="fmt"><span class="inf">22 TEAMS</span></div>
+        </div>
+        <div class="ev-body">
+          <div class="ev-meta"><span class="pill closed">Concluded · Jul 2026</span></div>
+          <h3><a class="ev-link" href="event-startup-sprint-01.html">Startup Sprint 01</a></h3>
+          <p class="ev-desc">36 hours from validation to demo day. Six student startups kept building post-event; two secured incubation offers from the campus cell.</p>
+          <div class="ev-high">
+            <span class="chip v">6 startups alive</span>
+            <span class="chip a">2 incubation offers</span>
+            <span class="chip">Mentors: local founders &amp; VCs</span>
+          </div>
+          <div class="ev-actions">
+            <a class="btn btn-ghost sm" href="#events" data-toast="Loading Startup Sprint outcomes report…">Outcomes Report ↗</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- PAST 3 -->
+      <article class="ev-card reveal" data-kind="past" style="--i:2">
+        <div class="ev-poster tone-a"><span class="big">OS</span>
+          <span class="kicker">Past · Monthly Series</span>
+          <div class="fmt"><span class="inf">ONGOING</span></div>
+        </div>
+        <div class="ev-body">
+          <div class="ev-meta"><span class="pill closed">Since Feb 2026 · Quarterly</span></div>
+          <h3><a class="ev-link" href="event-open-source-fridays.html">Open Source Fridays</a></h3>
+          <p class="ev-desc">Monthly contributor meetups that grew into a movement — 120+ merged PRs across partner repositories and 40 first-time contributors onboarded.</p>
+          <div class="ev-high">
+            <span class="chip v">120+ PRs merged</span>
+            <span class="chip">40 new contributors</span>
+            <span class="chip a">Partner repos: 8</span>
+          </div>
+          <div class="ev-actions">
+            <a class="btn btn-ghost sm" href="index.html#join" data-toast="Joining the next Open Source Friday — see you there!" data-magnet>Join Next Session ↗</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- PAST 4 -->
+      <article class="ev-card reveal" data-kind="past" style="--i:3">
+        <div class="ev-poster tone-p"><span class="big">X9</span>
+          <span class="kicker">Past · Community Meet</span>
+          <div class="fmt"><span class="inf">200+ MEMBERS</span></div>
+        </div>
+        <div class="ev-body">
+          <div class="ev-meta"><span class="pill closed">Concluded · Apr 2026</span></div>
+          <h3><a class="ev-link" href="event-innovax-open-house.html">InnovaX Open House</a></h3>
+          <p class="ev-desc">The day INNOVANTA met its wider campus — six-pillar demos, a project expo, and 200+ new members who never left the group chat.</p>
+          <div class="ev-high">
+            <span class="chip v">Pillar demos ×6</span>
+            <span class="chip a">Project expo ×18 stalls</span>
+            <span class="chip">+200 members</span>
+          </div>
+          <div class="ev-actions">
+            <a class="btn btn-ghost sm" href="gallery.html?event=open">Photo Gallery ↗</a>
+          </div>
+        </div>
+      </article>
+
+    </div>
+
+    <div class="events-note reveal">
+      <p><b>Every event carries a clear registration CTA</b> wired to its official form or platform — with live status so you always know what's Open, Closing Soon or Coming Soon. Content stays easy to manage through a simple admin-friendly event workflow.</p>
+      <a class="btn btn-ghost sm" href="index.html#join" data-magnet>Suggest an Event <span class="arr">↗</span></a>
+    </div>
+  </div>
   </div>
   </div>
 </section>
@@ -972,7 +1178,28 @@ footer{background:var(--night);color:rgba(245,241,234,.72);padding:clamp(3.4rem,
   var doc=document,reel=doc.getElementById('reel'),pin=doc.getElementById('reel-pin'),world=doc.getElementById('reel-world');
   var works=[].slice.call(doc.querySelectorAll('.rw')),bg=doc.getElementById('reel-bg');
   var cur=doc.getElementById('reel-cur'),tot=doc.getElementById('reel-tot'),bar=doc.getElementById('reel-bar');
-  if(matchMedia('(prefers-reduced-motion: reduce)').matches){reel.classList.add('static');return;}
+  var nview=doc.getElementById('nview'),rnote=doc.getElementById('reel-note'),sect=doc.getElementById('events');
+  var relayout=function(){},setReelFilter=function(){};
+  function setView(v){
+    var normal=v==='normal';
+    reel.hidden=normal;rnote.hidden=normal;nview.hidden=!normal;
+    [].forEach.call(doc.querySelectorAll('.vswitch button'),function(b){var on=b.getAttribute('data-view')===v;b.classList.toggle('on',on);b.setAttribute('aria-pressed',on);});
+    window.scrollTo({top:sect.getBoundingClientRect().top+window.scrollY,behavior:'auto'});
+    if(!normal)relayout();
+  }
+  [].forEach.call(doc.querySelectorAll('.vswitch button'),function(b){b.addEventListener('click',function(){setView(b.getAttribute('data-view'));});});
+  /* keep the two filter groups and the grid cards in sync */
+  var nfb=[].slice.call(doc.querySelectorAll('.nview .filters button'));
+  nfb.forEach(function(b){b.addEventListener('click',function(){setReelFilter(b.getAttribute('data-filter'),true);});});
+  function syncNormal(f){
+    nfb.forEach(function(x){x.classList.toggle('on',x.getAttribute('data-filter')===f);});
+    [].forEach.call(doc.querySelectorAll('.ev-card'),function(c){c.classList.toggle('is-hidden',f!=='all'&&c.getAttribute('data-kind')!==f);});
+  }
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches){reel.classList.add('static');
+    [].forEach.call(doc.querySelectorAll('.reel-head .rfilters button'),function(b){b.addEventListener('click',function(){var f=b.getAttribute('data-filter');
+      [].forEach.call(doc.querySelectorAll('.reel-head .rfilters button'),function(x){x.classList.toggle('on',x===b);});
+      [].forEach.call(doc.querySelectorAll('.rw'),function(w){w.classList.toggle('is-hidden',f!=='all'&&w.getAttribute('data-kind')!==f);});syncNormal(f);});});
+    return;}
   /* big faded word behind */
   var word=doc.createElement('div');word.className='reel-word';
   'EVENTS'.split('').forEach(function(ch){var i=doc.createElement('i');i.textContent=ch;word.appendChild(i);});
@@ -1035,16 +1262,19 @@ footer{background:var(--night);color:rgba(245,241,234,.72);padding:clamp(3.4rem,
   window.addEventListener('resize',function(){clearTimeout(window.__rt);window.__rt=setTimeout(layout,120);});
   new IntersectionObserver(function(es){active=es[0].isIntersecting;if(active)kick();},{rootMargin:'200px 0px'}).observe(reel);
   /* filters rebuild the reel */
-  var fb=[].slice.call(doc.querySelectorAll('.reel-head .filters button'));
-  fb.forEach(function(b){b.addEventListener('click',function(){
-    var f=b.getAttribute('data-filter');
-    fb.forEach(function(x){x.classList.toggle('on',x===b);});
+  var fb=[].slice.call(doc.querySelectorAll('.reel-head .rfilters button'));
+  setReelFilter=function(f,fromNormal){
+    fb.forEach(function(x){x.classList.toggle('on',x.getAttribute('data-filter')===f);});
     works.forEach(function(w){w.classList.toggle('is-hidden',f!=='all'&&w.getAttribute('data-kind')!==f);});
     vis=works.filter(function(w){return !w.classList.contains('is-hidden');});
+    syncNormal(f);
+    if(fromNormal)return; /* reel is hidden while the normal view is open; it re-lays out when shown */
     var top=reel.getBoundingClientRect().top+window.scrollY;
     pos=0;target=0;layout();
     window.scrollTo({top:Math.min(window.scrollY,top),behavior:'auto'});readScroll();pos=target;render();
-  });});
+  };
+  fb.forEach(function(b){b.addEventListener('click',function(){setReelFilter(b.getAttribute('data-filter'));});});
+  relayout=function(){pos=0;target=0;layout();pos=target;render();};
   layout();
   if(doc.fonts&&doc.fonts.ready)doc.fonts.ready.then(layout);
 })();
