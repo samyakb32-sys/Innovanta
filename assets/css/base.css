@@ -1,0 +1,21 @@
+/* ============ FONTS ============ */
+@font-face{font-family:'Space Grotesk';font-style:normal;font-weight:300 700;font-display:swap;src:url(../fonts/space-grotesk.woff2) format('woff2')}
+@font-face{font-family:'Inter';font-style:normal;font-weight:100 900;font-display:swap;src:url(../fonts/inter.woff2) format('woff2')}
+
+/* ============ TOKENS ============ */
+:root{
+  --bg:#F7F4ED; --bg-2:#F0EBE0; --paper:#FDFBF6;
+  --ink:#171226; --ink-2:#443C5C; --ink-3:#7A7194;
+  --violet:#6D3BE0; --violet-2:#8A63F6; --violet-soft:#E6DCFF;
+  --amber:#EE9F28; --amber-2:#FFB84D; --amber-soft:#FFEBCB;
+  --line:rgba(23,18,38,.13); --line-2:rgba(23,18,38,.07);
+  --night:#0D0917; --night-2:#161029;
+  --display:'Space Grotesk',ui-sans-serif,system-ui,sans-serif;
+  --body:'Inter',ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif;
+  --r-lg:22px; --r-md:14px; --r-sm:9px;
+  --ease:cubic-bezier(.22,1,.36,1);
+  --nav-h:72px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
